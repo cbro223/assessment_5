@@ -4,14 +4,22 @@ import matplotlib.pyplot as plt
 
 
 def difference_squares(x, y):
-    """ TODO
-    """
+    z_1 = x**2 - y**2
+    z_2 = (x-y) * (x+y)
+    print("z1 = {:.32f}".format(z_1))
+    print("z2 = {:.32f}".format(z_2))
+    print("z2 = {:.32f}".format(z_2-z_1))
     pass
 
 
 def relative_error_subtraction(x, y, z_exact):
-    """ TODO
-    """
+    print("x = {:.64f}".format(x))
+    print("y = {:.64f}".format(y))
+    z_approx = x-y
+    print("approx. value of z = {:.64f}".format(z_approx))
+    print("exact value of z = {:.64f}".format(z_exact))
+    rel_error = abs(z_exact-z_approx)/abs(z_exact)
+    print("relative error = {:.16f}".format(rel_error))
     pass
 
 
