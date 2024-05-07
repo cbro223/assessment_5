@@ -4,34 +4,38 @@ import matplotlib.pyplot as plt
 
 
 def difference_squares(x, y):
-    z_1 = x**2 - y**2
-    z_2 = (x-y) * (x+y)
+    z_1 = x ** 2 - y ** 2
+    z_2 = (x - y) * (x + y)
     print("z1 = {:.32f}".format(z_1))
     print("z2 = {:.32f}".format(z_2))
-    print("z2 = {:.32f}".format(z_2-z_1))
+    print("z2 = {:.32f}".format(z_2 - z_1))
     pass
 
 
 def relative_error_subtraction(x, y, z_exact):
     print("x = {:.64f}".format(x))
     print("y = {:.64f}".format(y))
-    z_approx = x-y
+    z_approx = x - y
     print("approx. value of z = {:.64f}".format(z_approx))
     print("exact value of z = {:.64f}".format(z_exact))
-    rel_error = abs(z_exact-z_approx)/abs(z_exact)
+    rel_error = abs(z_exact - z_approx) / abs(z_exact)
     print("relative error = {:.16f}".format(rel_error))
     pass
 
 
 def exact_solution_ode1(t):
-    """ TODO
-    """
+    term_1 = 2 * np.multiply(t, np.exp(np.multiply(-5, t)))
+    term_2 = 4 * np.exp(np.multiply(-5, t))
+    output = term_1 + term_2
+    return output
     pass
 
 
 def mean_absolute_error(y_exact, y_approx):
-    """ TODO
-    """
+    diff = 0
+    for i in range(len(y_exact)):
+        diff = diff + abs(y_exact[i] - y_approx[i])
+    return diff / len(y_exact)
     pass
 
 
@@ -130,5 +134,3 @@ def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
     """ TODO
     """
     pass
-
-
