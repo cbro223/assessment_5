@@ -27,21 +27,22 @@ def exact_solution_ode1(t):
     term_1 = 2 * np.multiply(t, np.exp(np.multiply(-5, t)))
     term_2 = 4 * np.exp(np.multiply(-5, t))
     output = term_1 + term_2
-    return output
+    return np.transpose(output)
     pass
 
 
 def mean_absolute_error(y_exact, y_approx):
     diff = 0
-    for i in range(len(y_exact)):
-        diff = diff + abs(y_exact[i] - y_approx[i])
-    return diff / len(y_exact)
+    for i in range(1, len(y_exact)):
+        diff = diff + abs(y_exact[i] - y_approx[0][i])
+    output = diff / len(y_exact)
+    print(output)
+    return output
     pass
 
 
 def derivative_ode1(t, y):
-    """ TODO
-    """
+    return -5 * y + 2 * np.exp(-5 * t)
     pass
 
 
