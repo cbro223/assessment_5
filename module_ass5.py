@@ -126,12 +126,37 @@ def classic_rk4_step(f, t, y, h):
 
 
 def explicit_rk_step(f, t, y, h, alpha, beta, gamma):
-    """ TODO
-    """
-    pass
+    # Check that the preconditions are met 
+    if len(alpha) != len(beta) or len(gamma) != len(alpha):
+        raise ValueError("Input matrices need to be the same lengths")
+    derivative_evaluations = np.zeros(len(alpha))
+    # Find all the derivative evalautions from f0 to fn
+
+    for i in range(len(beta)):
+        # Cycle through the beta rows
+        t_step = t + h * beta[i]
+        y_step = y
+        # Cycle through the columns of the gamma matrix
+        for j in range(len(beta)):
+            y_step += h * (gamma[i][j] * derivative_evaluations[j])
+        derivative_evaluations[i] = f(t_step, y_step)
+
+    # Generate the next step distance
+    step_distance = 0
+    for i in range(len(derivative_evaluations)):
+        step_distance += h * alpha[i] * derivative_evaluations[i]
+
+    # Compute the next y value iwth the previous step distance
+    y_new = step_distance + y
+    return y_new
 
 
 def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
-    """ TODO
-    """
+    # Check that the preconditions are met 
+    if len(alpha) != len(beta) or len(gamma) != len(alpha):
+        raise ValueError("Input matrices need to be the same lengths")
+    y_new = y0
+    for i in range(tspan[0], tspan[1], h):
+        y_new = explicit_rk_step(f,i,y_new,h, alpha, beta, gamma)
+    return y_new
     pass
