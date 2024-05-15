@@ -9,7 +9,7 @@ t_values = output.t
 y_approx = output.y
 
 y_exact = exact_solution_ode1(t_values)
-mae = mean_absolute_error(y_exact,y_approx)
+mae = mean_absolute_error(y_exact,y_approx[0])
 print(mae)
 
 plt.figure(figsize=(10,5))

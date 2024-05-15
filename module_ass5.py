@@ -36,7 +36,6 @@ def mean_absolute_error(y_exact, y_approx):
     for i in range(1, len(y_exact)):
         diff = diff + abs(y_exact[i] - y_approx[i])
     output = diff / len(y_exact)
-    print(output)
     return output
     pass
 
@@ -160,7 +159,7 @@ def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
     y = np.zeros(len(t))
     y[0] = y0
     for i in range(1, len(t)):
-        y[i] = explicit_rk_step(f, t[i], y[i-1], h, alpha, beta, gamma)
+        y[i] = explicit_rk_step(f, t[i-1], y[i-1], h, alpha, beta, gamma)
     print(len(y))
     return t,y
     pass
