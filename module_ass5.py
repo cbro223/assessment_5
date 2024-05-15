@@ -34,7 +34,7 @@ def exact_solution_ode1(t):
 def mean_absolute_error(y_exact, y_approx):
     diff = 0
     for i in range(1, len(y_exact)):
-        diff = diff + abs(y_exact[i] - y_approx[0][i])
+        diff = diff + abs(y_exact[i] - y_approx[i])
     output = diff / len(y_exact)
     print(output)
     return output
@@ -155,8 +155,12 @@ def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
     # Check that the preconditions are met 
     if len(alpha) != len(beta) or len(gamma) != len(alpha):
         raise ValueError("Input matrices need to be the same lengths")
-    y_new = y0
-    for i in range(tspan[0], tspan[1], h):
-        y_new = explicit_rk_step(f,i,y_new,h, alpha, beta, gamma)
-    return y_new
+
+    t = np.arange(tspan[0], tspan[1] + h, h)
+    y = np.zeros(len(t))
+    y[0] = y0
+    for i in range(1, len(t)):
+        y[i] = explicit_rk_step(f, t[i], y[i-1], h, alpha, beta, gamma)
+    print(len(y))
+    return y
     pass
