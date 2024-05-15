@@ -162,5 +162,5 @@ def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
     for i in range(1, len(t)):
         y[i] = explicit_rk_step(f, t[i], y[i-1], h, alpha, beta, gamma)
     print(len(y))
-    return y
+    return t,y
     pass

@@ -28,15 +28,15 @@ for i in range(len(h)):
     tspan = np.arange(0,2,h[i])
 
     proper_values = exact_solution_ode1(tspan)
-    estimated_values_euler = explicit_rk_solver(derivative_ode1, [0,2], 4,h[i], alpha_euler, beta_euler, gamma_euler)
+    t,estimated_values_euler = explicit_rk_solver(derivative_ode1, [0,2], 4,h[i], alpha_euler, beta_euler, gamma_euler)
 
     mae_euler = mean_absolute_error(proper_values, estimated_values_euler)
     euler_mae[i] = mae_euler
 
-    estimated_values_improved_euler = explicit_rk_solver(derivative_ode1, [0,2],4,h[i], alpha_improved_euler, beta_improved_euler, gamma_improved_euler)
+    t,estimated_values_improved_euler = explicit_rk_solver(derivative_ode1, [0,2],4,h[i], alpha_improved_euler, beta_improved_euler, gamma_improved_euler)
     improved_euler_mae[i] = mean_absolute_error(proper_values, estimated_values_improved_euler)
 
-    estimated_values_rk4 = explicit_rk_solver(derivative_ode1, [0,2], 4, h[i], alpha_rk4, beta_rk4, gamma_rk4)
+    t,estimated_values_rk4 = explicit_rk_solver(derivative_ode1, [0,2], 4, h[i], alpha_rk4, beta_rk4, gamma_rk4)
     rk4_mae[i] = mean_absolute_error(proper_values, estimated_values_rk4)
 
 plt.plot(h, euler_mae, label = "Euler MAE", color = "red")
