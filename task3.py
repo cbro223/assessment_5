@@ -30,14 +30,14 @@ for i in range(len(h)):
     proper_values = exact_solution_ode1(tspan)
     t,estimated_values_euler = explicit_rk_solver(derivative_ode1, [0,2], 4,h[i], alpha_euler, beta_euler, gamma_euler)
 
-    mae_euler = mean_absolute_error(proper_values, estimated_values_euler)
+    mae_euler = mean_absolute_error(proper_values[1:], estimated_values_euler[1:])
     euler_mae[i] = mae_euler
 
     t,estimated_values_improved_euler = explicit_rk_solver(derivative_ode1, [0,2],4,h[i], alpha_improved_euler, beta_improved_euler, gamma_improved_euler)
-    improved_euler_mae[i] = mean_absolute_error(proper_values, estimated_values_improved_euler)
+    improved_euler_mae[i] = mean_absolute_error(proper_values[1:], estimated_values_improved_euler[1:])
 
     t,estimated_values_rk4 = explicit_rk_solver(derivative_ode1, [0,2], 4, h[i], alpha_rk4, beta_rk4, gamma_rk4)
-    rk4_mae[i] = mean_absolute_error(proper_values, estimated_values_rk4)
+    rk4_mae[i] = mean_absolute_error(proper_values[1:], estimated_values_rk4[1:])
 
 plt.plot(h, euler_mae, label = "Euler MAE", color = "red")
 plt.plot(h, improved_euler_mae, label = "Improved Euler MAE", color = "blue")
