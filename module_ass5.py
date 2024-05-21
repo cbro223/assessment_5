@@ -68,11 +68,12 @@ def mean_absolute_error(y_exact, y_approx):
         (precondition 1): the y_exact and y_approx arrays should exclude the first time value(i.e. the boundary condition)
     """
     diff = 0
+    # Sum all the absolutes of the differences of the approx and exact values
     for i in range(len(y_exact)):
         diff = diff + abs(y_exact[i] - y_approx[i])
-    output = diff / len(y_exact)
-    return output
-    pass
+    # Divide the sum by the total number of values
+    mae = diff / len(y_exact)
+    return mae
 
 
 def derivative_ode1(t, y):
@@ -189,7 +190,7 @@ def explicit_rk_step(f, t, y, h, alpha, beta, gamma):
     if len(alpha) != len(beta) or len(gamma) != len(alpha):
         raise ValueError("Input matrices need to be the same lengths")
     derivative_evaluations = np.zeros(len(alpha))
-    # Find all the derivative evalautions from f0 to fn
+    # Find all the derivative evaluations from f0 to fn
 
     for i in range(len(beta)):
         # Cycle through the beta rows
@@ -203,9 +204,9 @@ def explicit_rk_step(f, t, y, h, alpha, beta, gamma):
     # Generate the next step distance
     step_distance = 0
     for i in range(len(derivative_evaluations)):
-        step_distance += h * alpha[i] * derivative_evaluations[i]
-
-    # Compute the next y value iwth the previous step distance
+        step_distance += alpha[i] * derivative_evaluations[i]
+    step_distance *= h
+    # Compute the next y value with the previous step distance
     y_new = step_distance + y
     return y_new
 
@@ -233,11 +234,11 @@ def explicit_rk_solver(f, tspan, y0, h, alpha, beta, gamma):
     if len(alpha) != len(beta) or len(gamma) != len(alpha):
         raise ValueError("Input matrices need to be the same lengths")
 
+    # Set up the t and y arrays
     t = np.arange(tspan[0], tspan[1] + h, h)
     y = np.zeros(len(t))
     y[0] = y0
     for i in range(1, len(t)):
+        # Find the next step of the function
         y[i] = explicit_rk_step(f, t[i-1], y[i-1], h, alpha, beta, gamma)
-    print(len(y))
     return t,y
-    pass

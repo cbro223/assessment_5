@@ -30,7 +30,10 @@ alpha_rk4 = np.array([1 / 6, 1 / 3, 1 / 3, 1 / 6])
 beta_rk4 = np.array([0, 0.5, 0.5, 1])
 gamma_rk4 = np.array([[0, 0, 0, 0], [0.5, 0, 0, 0], [0, 0.5, 0, 0], [0, 0, 1, 0]])
 
-print(explicit_rk_step(derivative_ode1, 0, 4, 1, alpha_improved_euler, beta_improved_euler, gamma_improved_euler))
-t, values = explicit_rk_solver(derivative_ode1, [0,1], 4, 0.01, alpha_euler, beta_euler, gamma_euler)
+# print(explicit_rk_step(derivative_ode1, 0, 4, 1, alpha_improved_euler, beta_improved_euler, gamma_improved_euler))
+# t, values = explicit_rk_solver(derivative_ode1, [0,1], 4, 0.01, alpha_euler, beta_euler, gamma_euler)
+#
+# print(values)
+t,y = explicit_rk_solver(derivative_ode1, [0,2], 4, 0.01, alpha_improved_euler, beta_improved_euler, gamma_improved_euler)
 
-print(values)
+print(exact_solution_ode1(0))
